@@ -21,10 +21,10 @@ jobs:
           pip install .
 
       - name: Run Ruff
-        run: ruff .
+        run: ruff check
 
       - name: Run Ty
-        run: ty .
+        run: ty check
 
       - name: Run Unit Tests
         run: pytest

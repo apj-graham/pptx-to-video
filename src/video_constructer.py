@@ -118,6 +118,11 @@ class VideoConstructer:
         )
 
         logger.info(f"Video assembly complete. Video saved to {output_video_path}")
+
+        logger.info("Cleaning up temporary files...")
+        self._tmp_dir_cleanup()
+        logger.info("Temporary files cleaned up.")
+
         return output_video_path
 
     def _construct_image_clip(
@@ -143,3 +148,12 @@ class VideoConstructer:
             logger.info(f"No audio for image {img_path}, using default duration")
             slide_clip = ImageClip(img_path, duration=5.0)  # default 5s if no audio
         return slide_clip
+
+    def _tmp_dir_cleanup(self) -> None:
+        """Helper method to clean up temporary directory"""
+        for root, dirs, files in os.walk(self.tmp_dir, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        os.rmdir(self.tmp_dir)

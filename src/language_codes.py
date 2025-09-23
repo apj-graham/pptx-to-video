@@ -11,7 +11,7 @@ def language_to_code(language: str) -> str:
     """
     translater = GoogleTranslator()
     langs = translater.get_supported_languages(as_dict=True)
-    for code, name in langs.items():
-        if name.lower() == language.lower():
-            return code
-    raise ValueError(f"Language '{language}' not supported.")
+    try:
+        return langs[language.lower()]
+    except KeyError:
+        raise ValueError(f"Language '{language}' not supported.")

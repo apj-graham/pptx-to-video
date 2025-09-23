@@ -8,7 +8,9 @@ ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 
 # Formatter
-formatter = logging.Formatter("%(asctime)s %(filename):%(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s %(filename)s %(levelname)s - %(message)s", datefmt="%H:%M:%S"
+)
 ch.setFormatter(formatter)
 
 # Avoid adding multiple handlers if re-imported

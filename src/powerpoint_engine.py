@@ -6,12 +6,12 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List, Union
 
-from powerpoint import Presentation
+from pptx import Presentation
 
 from src.logger import logger
 
 
-class PowerPointEngine:
+class PowerPointEngine(ABC):
     """Interface for PowerPoint engines"""
 
     def __init__(self, pptx_path):
