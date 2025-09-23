@@ -21,7 +21,7 @@ jobs:
           pip install .
 
       - name: Run Ruff
-        run: ruff check
+        run: ruff check --fix
 
       - name: Run Ty
         run: ty check

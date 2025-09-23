@@ -36,7 +36,7 @@ class VideoConstructer:
         :return: Note texts translated to target language
         :rtype: List[str]
         """
-        logger.info(f"Starting translation for all notes...")
+        logger.info("Starting translation for all notes...")
         results = []
         for note in self.powerpoint.slide_notes:
             logger.info(
