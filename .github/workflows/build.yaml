@@ -5,6 +5,20 @@ on: [push, pull_request]
 jobs:
   build:
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+          pip install -e .[dev]
+
       - name: Build Documentation
         run: |
           cd docs
