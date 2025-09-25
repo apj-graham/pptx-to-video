@@ -1,4 +1,4 @@
-name: Code Checks
+name: Testing
 
 on: [push, pull_request]
 
