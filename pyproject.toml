@@ -35,7 +35,7 @@ dev = [
 ]
 
 [tool.bumpver]
-current_version = "2025.1001-alpha"
+current_version = "2025.1002-alpha"
 version_pattern = "YYYY.BUILD[-TAG]"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
@@ -50,7 +50,7 @@ push = true
 "pyproject.toml" = [
     'current_version = "{version}"',
 ]
-"src/reader/__init__.py" = ["{version}"]
+"src/pptx_to_video/__init__.py" = ["{version}"]
 "README.md" = [
     "{version}",
     "{pep440_version}",
