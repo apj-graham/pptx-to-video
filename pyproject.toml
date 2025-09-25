@@ -3,16 +3,55 @@ name = "ppt-to-video"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [{ name = "Aaron Graham", email = "apj_graham@yahoo.co.uk" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["powerpoint", "pptx", "video", "gtts", "moviepy", "automation", "text-to-speech"]
 requires-python = ">=3.10"
 dependencies = [
-    "coverage>=7.10.7",
     "deep-translator>=1.11.4",
     "gtts>=2.5.4",
     "moviepy>=2.2.1",
-    "pytest>=8.4.2",
     "python-pptx>=1.0.2",
-    "ruff>=0.13.1",
     "sphinx>=8.1.3",
     "sphinx-autodoc-typehints>=3.0.1",
+]
+
+[project.scripts]
+pptx_to_video = "pptx_to_video.__main__:main"
+
+[dependency-groups]
+dev = [
+    "bumpver>=2025.1131",
+    "coverage>=7.10.7",
+    "pip-tools>=7.5.0",
+    "pytest>=8.4.2",
+    "ruff>=0.13.1",
     "ty>=0.0.1a21",
+]
+
+[tool.bumpver]
+current_version = "2025.1001-alpha"
+version_pattern = "YYYY.BUILD[-TAG]"
+commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+pre_commit_hook = ""
+post_commit_hook = ""
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+]
+"src/reader/__init__.py" = ["{version}"]
+"README.md" = [
+    "{version}",
+    "{pep440_version}",
 ]

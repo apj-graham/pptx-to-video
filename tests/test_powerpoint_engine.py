@@ -4,7 +4,7 @@ from unittest import mock
 
 import pytest
 
-from src.powerpoint_engine import (
+from src.pptx_to_video.powerpoint_engine import (
     LibreOfficePowerPointEngine,
     PowerPointEngine,
     WindowsPowerPointEngine,

@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from src.language_codes import language_to_code
+from src.pptx_to_video.language_codes import language_to_code
 
 
 class TestLanguageCodes:
