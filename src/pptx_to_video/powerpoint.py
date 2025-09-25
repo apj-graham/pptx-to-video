@@ -2,7 +2,7 @@ import os
 import platform
 from typing import Union
 
-from src.powerpoint_engine import PowerPointEngine
+from pptx_to_video.powerpoint_engine import PowerPointEngine
 
 
 class PowerPoint:

@@ -5,9 +5,9 @@ from deep_translator import GoogleTranslator
 from gtts import gTTS
 from moviepy import AudioFileClip, ImageClip, concatenate_videoclips
 
-from src.language_codes import language_to_code
-from src.logger import logger
-from src.powerpoint import PowerPoint
+from pptx_to_video.language_codes import language_to_code
+from pptx_to_video.logger import logger
+from pptx_to_video.powerpoint import PowerPoint
 
 
 class VideoConstructer:
