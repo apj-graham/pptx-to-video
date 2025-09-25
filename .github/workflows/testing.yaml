@@ -3,7 +3,7 @@ name: Testing
 on: [push, pull_request]
 
 jobs:
-  lint-and-typecheck:
+  test:
     runs-on: ubuntu-latest, windows-latest, macos-latest
     strategy:
       matrix:

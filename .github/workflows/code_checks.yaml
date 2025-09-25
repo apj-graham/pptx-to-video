@@ -3,12 +3,7 @@ name: Code Checks
 on: [push, pull_request]
 
 jobs:
-  lint-and-typecheck:
-    runs-on: ubuntu-latest, windows-latest, macos-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
+  lint:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
