@@ -8,7 +8,7 @@ from typing import List, Union
 
 from pptx import Presentation
 
-from src.logger import logger
+from pptx_to_video.logger import logger
 
 
 class PowerPointEngine(ABC):
