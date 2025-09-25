@@ -23,7 +23,7 @@ Convert PowerPoint presentations (`.pptx`) into narrated videos with automatic t
 
 Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 ## Usage
