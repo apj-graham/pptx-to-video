@@ -13,12 +13,12 @@ class PowerPoint:
         self.output_dir: Union[str, os.PathLike] = output_dir
 
         if platform.system() == "Windows":
-            from src.powerpoint_engine import WindowsPowerPointEngine
+            from pptx_to_video.powerpoint_engine import WindowsPowerPointEngine
 
             self.engine: PowerPointEngine = WindowsPowerPointEngine(self.pptx_path)
 
         elif platform.system() == "Darwin" or platform.system() == "Linux":
-            from src.powerpoint_engine import LibreOfficePowerPointEngine
+            from pptx_to_video.powerpoint_engine import LibreOfficePowerPointEngine
 
             self.engine: PowerPointEngine = LibreOfficePowerPointEngine(self.pptx_path)
 
