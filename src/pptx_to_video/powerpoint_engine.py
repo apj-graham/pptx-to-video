@@ -54,7 +54,6 @@ class WindowsPowerPointEngine(PowerPointEngine):
 
     def __init__(self, pptx_path):
         super().__init__(pptx_path)
-        
 
         if platform.system() != "Windows":
             raise EnvironmentError(
@@ -78,6 +77,7 @@ class WindowsPowerPointEngine(PowerPointEngine):
         :rtype: List[Path]
         """
         import win32com.client
+
         out_dir = Path(out_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -85,13 +85,13 @@ class WindowsPowerPointEngine(PowerPointEngine):
 
         powerpoint = win32com.client.Dispatch("PowerPoint.Application")
         powerpoint.Visible = True
-        presentation = self.powerpoint.Presentations.Open(
+        presentation = powerpoint.Presentations.Open(
             os.path.abspath(self.pptx_path), WithWindow=False
         )
         base = out_dir / "slide_image"
         presentation.SaveAs(str(base), 17)  # 17 is the enum for JPG format
         presentation.Close()
-        self.powerpoint.Quit()
+        powerpoint.Quit()
 
         images = sorted(out_dir.glob("slide_image*.JPG"))
         logger.info(f"Exported {len(images)} slides as images.")
