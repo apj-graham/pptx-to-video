@@ -54,7 +54,7 @@ class WindowsPowerPointEngine(PowerPointEngine):
 
     def __init__(self, pptx_path):
         super().__init__(pptx_path)
-        import win32com.client
+        
 
         if platform.system() != "Windows":
             raise EnvironmentError(
@@ -69,14 +69,6 @@ class WindowsPowerPointEngine(PowerPointEngine):
         if not os.path.isfile(pptx_path):
             raise FileNotFoundError(f"The file {pptx_path} does not exist.")
 
-        try:
-            self.powerpoint = win32com.client.Dispatch("PowerPoint.Application")
-            self.powerpoint.Visible = False
-        except Exception as e:
-            raise RuntimeError(
-                "Failed to initialize PowerPoint application. Ensure that Microsoft PowerPoint is installed."
-            ) from e
-
     def export_slides_as_images(self, out_dir: Union[str, os.PathLike]) -> List[Path]:
         """Saves slides as images to out_dir
 
@@ -85,10 +77,14 @@ class WindowsPowerPointEngine(PowerPointEngine):
         :return: List of image paths
         :rtype: List[Path]
         """
+        import win32com.client
         out_dir = Path(out_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
 
         logger.info(f"Exporting slides as images to {out_dir}...")
+
+        powerpoint = win32com.client.Dispatch("PowerPoint.Application")
+        powerpoint.Visible = True
         presentation = self.powerpoint.Presentations.Open(
             os.path.abspath(self.pptx_path), WithWindow=False
         )
