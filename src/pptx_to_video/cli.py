@@ -1,4 +1,5 @@
 import argparse
+import os
 
 
 def arg_parser() -> argparse.ArgumentParser:
@@ -28,7 +29,7 @@ def arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="output_videos",
+        default=os.path.join(os.getcwd(), "output_videos"),
         help="Directory to save the output videos (default: 'output_videos').",
     )
 
