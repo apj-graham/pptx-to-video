@@ -64,15 +64,15 @@ class VideoConstructer:
         audio_paths = []
         for i, text in enumerate(texts):
             if not text.strip():
-                logger.info(f"Skipping empty notes for Slide {i+1}")
+                logger.info(f"Skipping empty notes for Slide {i + 1}")
                 audio_paths.append(None)
                 continue
 
             out_path = os.path.join(
-                self.tmp_dir, f"slide_{i+1:03d}_narration_{self.language_code}.mp3"
+                self.tmp_dir, f"slide_{i + 1:03d}_narration_{self.language_code}.mp3"
             )
 
-            logger.info(f"Synthesizing speech for Slide {i+1} to {out_path}")
+            logger.info(f"Synthesizing speech for Slide {i + 1} to {out_path}")
             tts = gTTS(text=text, lang=self.language_code)
             tts.save(out_path)
             audio_paths.append(out_path)
@@ -97,7 +97,7 @@ class VideoConstructer:
         for i, (img_path, audio_path) in enumerate(
             zip(self.powerpoint.slide_image_paths, audio_files)
         ):
-            logger.info(f"Creating Video clip for Slide {i+1}")
+            logger.info(f"Creating Video clip for Slide {i + 1}")
 
             slide_clip = self._construct_image_clip(
                 img_path=img_path,

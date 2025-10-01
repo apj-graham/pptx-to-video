@@ -37,7 +37,7 @@ class PowerPointEngine(ABC):
         prs = Presentation(self.pptx_path)
         slides_data = []
         for i, slide in enumerate(prs.slides):
-            logger.info(f"Extracting notes from Slide {i+1}/{len(prs.slides)}")
+            logger.info(f"Extracting notes from Slide {i + 1}/{len(prs.slides)}")
             notes_text = ""
             if slide.has_notes_slide and slide.notes_slide.notes_text_frame:
                 notes_text = "\n".join(
