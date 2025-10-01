@@ -22,7 +22,7 @@ class TestPowerPointEngine:
         """Test that NotImplementedError is raised for base class method"""
         pptx_path = os.path.join(INPUTS_PATH, "test.pptx")
         with pytest.raises(TypeError):
-            engine = PowerPointEngine(pptx_path)
+            PowerPointEngine(pptx_path)
 
 
 @pytest.mark.skipif(
