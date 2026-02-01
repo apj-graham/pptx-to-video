@@ -10,15 +10,19 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
-keywords = ["powerpoint", "pptx", "video", "gtts", "moviepy", "automation", "text-to-speech"]
+keywords = ["powerpoint", "pptx", "video", "piper-tts", "moviepy", "automation", "text-to-speech"]
 requires-python = ">=3.10"
 dependencies = [
+    "argostranslate>=1.10.0",
     "deep-translator>=1.11.4",
-    "gtts>=2.5.4",
     "moviepy>=2.2.1",
+    "piper-tts>=1.3.0",
+    "python-levenshtein>=0.27.3",
     "python-pptx>=1.0.2",
+    "scipy>=1.15.3",
     "sphinx>=8.1.3",
     "sphinx-autodoc-typehints>=3.0.1",
+    "tqdm>=4.67.1",
 ]
 
 [project.scripts]

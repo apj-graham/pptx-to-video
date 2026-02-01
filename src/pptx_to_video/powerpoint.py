@@ -1,6 +1,6 @@
 import os
 import platform
-from typing import Union
+from typing import List, Union
 
 from pptx_to_video.powerpoint_engine import PowerPointEngine
 
@@ -27,5 +27,8 @@ class PowerPoint:
                 "Unsupported operating system for PowerPoint processing."
             )
 
-        self.slide_image_paths = self.engine.export_slides_as_images(self.output_dir)
-        self.slide_notes = self.engine.extract_notes_from_pptx()
+        self.slide_image_paths: List[str] = self.engine.export_slides_as_images(
+            self.output_dir
+        )
+        self.slide_notes: List[dict] = self.engine.extract_notes_from_pptx()
+] = []

@@ -1,0 +1,2 @@
+[console_scripts]
+pptx_to_video = pptx_to_video.__main__:main

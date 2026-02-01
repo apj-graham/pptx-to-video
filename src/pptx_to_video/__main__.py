@@ -4,6 +4,18 @@ from pptx_to_video.powerpoint import PowerPoint
 from pptx_to_video.video_constructer import VideoConstructer
 
 
+
+"""Inputs:
+- PPTX file path
+- Output directory
+- List of target languages
+"""
+
+
+
+
+
+
 def main() -> None:
     """Main function to run the PPTX to video conversion script"""
     parser = arg_parser()
