@@ -2,8 +2,6 @@ import argparse
 import os
 from typing import List
 
-from numpy import require
-
 from pptx_to_video.languages import Languages
 from pptx_to_video.logger import logger
 
