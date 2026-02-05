@@ -2,9 +2,10 @@ import argparse
 import os
 from typing import List
 
-import Levenshtein
-from languages import Languages
-from logger import logger
+from numpy import require
+
+from pptx_to_video.languages import Languages
+from pptx_to_video.logger import logger
 
 
 class ValidatePPTXFile(argparse.Action):
@@ -37,25 +38,16 @@ class ValidateLanguage(argparse.Action):
         option_string: str | None = None,
     ) -> None:
 
-        def is_similar_levenshtein(s1, s2, threshold=1) -> bool:
-            distance: int = Levenshtein.distance(s1, s2)
-            return distance <= threshold
-
         languages_manager: Languages = Languages()
         available_language_names: List[str] = (
             languages_manager.get_available_language_names()
         )
 
         invalid_languages: List[str] = []
+
         for lang in values:
-            if not languages_manager.is_language_supported(lang):
-                for suggestion in available_language_names:
-                    if is_similar_levenshtein(lang, suggestion):
-                        raise ValueError(
-                            f"Language code '{lang}' not found. Did you mean '{suggestion}'?"
-                        )
-                    else:
-                        invalid_languages.append(lang)
+            if not lang in languages_manager.get_available_language_names():
+                invalid_languages.append(lang)
 
         if invalid_languages:
             parser.error(
@@ -110,9 +102,9 @@ def arg_parser() -> argparse.ArgumentParser:
         "--languages",
         type=str,
         nargs="+",
-        default=["en"],
         help="List of language codes for translation (default: ['en']).",
         action=ValidateLanguage,
+        required=True,
     )
 
     parser.add_argument(

@@ -12,6 +12,8 @@ from piper.download_voices import download_voice, list_voices
 from piper.voice import PiperVoice
 from tqdm import tqdm
 
+from pptx_to_video.logger import logger
+
 
 @contextmanager
 def stdout_capture() -> TextIO:
@@ -34,10 +36,15 @@ def get_piper_languages() -> List[str]:
     :return: _description_
     :rtype: _type_
     """
+    logger.info("Fetching Piper TTS available languages...")
     with stdout_capture() as captured_output:
         list_voices()
+    logger.info(f"Updated Piper TTS languages.")
 
     return captured_output.getvalue().splitlines()
+
+
+PIPER_LANGUAGES: List[str] = get_piper_languages()
 
 
 class TextToSpeechEngine:
@@ -60,14 +67,13 @@ class TextToSpeechEngine:
         :return: List of available voice names
         :rtype: List[str]
         """
-        all_voices: List[str] = get_piper_languages()
 
         if language:
             return list(
-                filter(lambda voice: language.lower() in voice.lower(), all_voices)
+                filter(lambda voice: language.lower() in voice.lower(), PIPER_LANGUAGES)
             )
 
-        return all_voices
+        return PIPER_LANGUAGES
 
     def list_available_languages(self) -> set[str]:
         """

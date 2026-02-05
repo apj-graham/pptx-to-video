@@ -5,7 +5,9 @@ from pprint import pprint
 from typing import List
 
 import argostranslate.package
-from tts import get_piper_languages
+
+from pptx_to_video.logger import logger
+from pptx_to_video.tts import PIPER_LANGUAGES
 
 
 @dataclass
@@ -29,8 +31,13 @@ class Languages:
     )
 
     def __init__(self):
+        logger.info("Initializing Languages manager...")
         self.code_to_language: dict[str, str] = self.load_iso_name_mapping()
         self.available_languages: List[LanguageInfo] = self._load_available_languages()
+        logger.info(
+            f"Loaded {len(self.available_languages)} available languages "
+            "supported by both translation and TTS."
+        )
 
     def get_available_language_names(self) -> List[str]:
         """Get a list of names for all available languages.
@@ -39,7 +46,7 @@ class Languages:
             List[str]: A list of language names that are supported by both
                       translation and text-to-speech systems.
         """
-        return [lang.name for lang in self.available_languages]
+        return [lang.name.lower() for lang in self.available_languages]
 
     def load_iso_name_mapping(self) -> dict[str, str]:
         """Load ISO 639-1 language codes and their corresponding names from CSV file.
@@ -50,10 +57,12 @@ class Languages:
             dict[str, str]: A dictionary mapping ISO 639-1 codes to language names.
         """
         mapping: dict[str, str] = {}
+        logger.info(f"Loading ISO language codes from {self.ISO_PATH}...")
         with open(self.ISO_PATH, newline="", encoding="utf-8") as csvfile:
             reader: csv.DictReader = csv.DictReader(csvfile)
             for row in reader:
-                mapping[row["639-1"]] = row["name"]
+                mapping[row["639-1"]] = row["name"].split(" (")[0]
+        logger.info(f"Loaded {len(mapping)} ISO language codes.")
         return mapping
 
     def _get_argos_language_codes(self) -> set[str]:
@@ -65,7 +74,10 @@ class Languages:
         Returns:
             set[str]: A set of ISO language codes supported by Argos Translate.
         """
+        logger.info("Fetching Argos Translate packages...")
         argostranslate.package.update_package_index()
+        logger.info("Argos package list updated.")
+
         available_packages = argostranslate.package.get_available_packages()
         return set([pkg.to_code for pkg in available_packages if pkg.from_code == "en"])
 
@@ -78,8 +90,8 @@ class Languages:
         Returns:
             set[str]: A set of ISO 639-1 language codes supported by Piper TTS.
         """
-        languages: List[str] = get_piper_languages()
-        return set([lang[:2] for lang in languages])
+
+        return set([lang[:2] for lang in PIPER_LANGUAGES])
 
     def _iso_to_piper_locale(self, iso_code: str) -> str:
         """Convert an ISO 639-1 language code to a Piper locale code.
@@ -92,8 +104,8 @@ class Languages:
         Returns:
             str: The corresponding Piper locale code, or empty string if not found.
         """
-        piper_locales: List[str] = get_piper_languages()
-        for locale in piper_locales:
+
+        for locale in PIPER_LANGUAGES:
             if locale.startswith(iso_code):
                 return locale
         return ""
