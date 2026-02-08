@@ -123,7 +123,7 @@ class TextToSpeechEngine:
         )
         return voice_name
 
-    async def _aysync_download_piper_voices(self, max_workers: int = 3) -> List[str]:
+    async def _async_download_piper_voices(self, max_workers: int = 3) -> List[str]:
         """
         Download Piper voices concurrently with progress bar.
 
@@ -169,7 +169,7 @@ class TextToSpeechEngine:
         :return: List of downloaded voice names
         :rtype: List[str]
         """
-        return asyncio.run(self._aysync_download_piper_voices(max_workers=max_workers))
+        return asyncio.run(self._async_download_piper_voices(max_workers=max_workers))
 
     def synthesize_speech(self, text: str, language: str, output_path: Path):
         """
